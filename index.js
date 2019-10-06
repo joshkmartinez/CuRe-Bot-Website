@@ -38,8 +38,20 @@ app.get("/invite", (req, res) => {
   );
 });
 
+app.get("/server", (req, res) => {
+  res.redirect(
+    "https://discord.gg/EnQTzpB"
+  );
+});
+
+app.get("/repo", (req, res) => {
+  res.redirect(
+    "https://github.com/joshkmartinez/cure-bot"
+  );
+});
+
 app.get("/", (req, res) => {
-  res.end("Hey check out this cool website for CuRe Bot!\ntdlr: CuRe Bot is a custom response bot for discord.\nI know, this website is just so amazing you have an unfathomable urge to invite the bot to your discord server.\nWell here is how you can satisfy your urge. Go to https://cure.now.sh/invite")
+  res.send("Hey check out this cool website for CuRe Bot!<br/>tdlr: CuRe Bot is a custom response bot for discord.<br/>I know, this website is just so amazing you have an unfathomable urge to invite the bot to your discord server.<br/>Well here is how you can satisfy your urge. Go to https://cure.now.sh/invite<br/><br/>Need help with the bot? Join the support server: https://cure.now.sh/server<br/>CuRe Bot is also open source! https://cure.now.sh/repo")
 });
 
 app.listen(port, () => {
