@@ -51,7 +51,7 @@ app.get("/repo", (req, res) => {
 });
 
 app.get("/", (req, res) => {
-  res.send("Hey check out this cool website for CuRe Bot!<br/>tdlr: CuRe Bot is a custom response bot for discord.<br/>I know, this website is just so amazing you have an unfathomable urge to invite the bot to your discord server.<br/>Well here is how you can satisfy your urge. Go to https://cure.now.sh/invite<br/><br/>Need help with the bot? Join the support server: https://cure.now.sh/server<br/>CuRe Bot is also open source! https://cure.now.sh/repo")
+  res.send("Hey check out this cool website for CuRe Bot!<br/>tdlr: CuRe Bot is a custom response bot for discord.<br/>I know, this website is just so amazing you have an unfathomable urge to invite the bot to your discord server.<br/>Well here is how you can satisfy your urge. Go to https://curebot.dev/invite<br/><br/>Need help with the bot? Join the support server: https://curebot.dev/server<br/>CuRe Bot is also open source! https://curebot.dev/repo")
 });
 
 app.listen(port, () => {
