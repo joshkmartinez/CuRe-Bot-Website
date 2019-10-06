@@ -1,6 +1,6 @@
 {
   "name": "CuRe Bot Website",
-  "alias": ["cure", "cure-bot", "cureBot"],
+  "alias": ["cure", "cure-bot", "cureBot","curebot.dev"],
   "version": 2,
   "builds": [{ "src": "index.js", "use": "@now/node" }],
   "routes": [{ "src": "/(.*)", "dest": "index.js" }],
