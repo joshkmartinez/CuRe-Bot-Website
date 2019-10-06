@@ -28,7 +28,7 @@ app.get("/triggers", (req, res) => {
       res.send(ans);
     })
     .catch(async function(error) {
-      res.end("Error. A server with that ID does not exist.\n"+error);
+      res.send("Error. A server with that ID does not exist.<br/>"+error);
     });
 });
 
@@ -55,5 +55,5 @@ app.get("/", (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Server is live on port 5000`);
+  console.log(`Server is live on port 3000`);
 });

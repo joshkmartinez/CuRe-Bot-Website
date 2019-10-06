@@ -1,5 +1,5 @@
 {
-  "name": "CuRe Bot",
+  "name": "CuRe Bot Website",
   "alias": ["cure", "cure-bot", "cureBot"],
   "version": 2,
   "builds": [{ "src": "index.js", "use": "@now/node" }],
