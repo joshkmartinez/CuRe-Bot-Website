@@ -2,20 +2,24 @@ const express = require("express");
 const app = express();
 const { parse } = require("url");
 const axios = require("axios");
+const marked = require("marked");
 require("dotenv").config();
 const port = 3000;
 app.use(express.urlencoded({ extended: false }));
+
+const styles = `<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">`;
+
+const captcha =
+  '<script src="https://hcaptcha.com/1/api.js" async defer></script>';
 
 app.get("/triggers", (req, res) => {
   const { query } = parse(req.url, true);
   const { guild = "000000000000000000" } = query;
   axios
     .get(process.env.storage_service + guild)
-    .then(async function(response) {
-      if (JSON.stringify(response.data) == "{}") {
-        res.end("This server does not has not created any triggers.");
-      }
-      let list=[]
+    .then(async function (response) {
+      let list = [];
       //compose array of all triggers
       for (i = 0; i < Object.keys(response.data).length; i++) {
         let j = Object.keys(response.data)[i];
@@ -23,12 +27,23 @@ app.get("/triggers", (req, res) => {
       }
       let ans = "";
       for (i = 0; i < list.length; i++) {
-        ans += "Index: " + i + "<br/>" + list[i]+"<br/><br/>";
+        ans += "<b>Index: " + i + "</b><br/>" + list[i] + "<br/><br/>";
       }
-      res.send(ans);
+      res.send(
+        styles +
+          captcha +
+          '<div class="h-captcha" data-sitekey="10c0694e-6e03-4851-b19a-92025eb2d72c"></div>' +
+          ans
+      );
     })
-    .catch(async function(error) {
-      res.send("Error. A server with that ID does not exist.<br/>"+error);
+    .catch(async function (error) {
+      res.send(
+        styles +
+          error +
+          marked(
+            "### A server with that ID does not exist.<br/>Create a trigger with the `?create` command to see it here."
+          )
+      );
     });
 });
 
@@ -39,19 +54,24 @@ app.get("/invite", (req, res) => {
 });
 
 app.get("/server", (req, res) => {
-  res.redirect(
-    "https://discord.gg/EnQTzpB"
-  );
+  res.redirect("https://discord.gg/EnQTzpB");
 });
 
 app.get("/repo", (req, res) => {
-  res.redirect(
-    "https://github.com/joshkmartinez/cure-bot"
-  );
+  res.redirect("https://github.com/joshkmartinez/cure-bot");
 });
 
 app.get("/", (req, res) => {
-  res.send("Hey check out this cool website for CuRe Bot!<br/>tdlr: CuRe Bot is a custom response bot for discord.<br/>I know, this website is just so amazing you have an unfathomable urge to invite the bot to your discord server.<br/>Well here is how you can satisfy your urge. Go to https://curebot.dev/invite<br/><br/>Need help with the bot? Join the support server: https://curebot.dev/server<br/>CuRe Bot is also open source! https://curebot.dev/repo")
+  axios
+    .get(
+      "https://raw.githubusercontent.com/joshkmartinez/CuRe-Bot/master/README.md"
+    )
+    .then(async function (response) {
+      res.send(styles + marked(response.data));
+    })
+    .catch(async function (error) {
+      res.send(styles + error + "<b/>Error. Please refresh the page.");
+    });
 });
 
 app.listen(port, () => {
