@@ -13,6 +13,9 @@ async src="//gc.zgo.at/count.js"></script>`;
 const styles = `<meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">`;
 
+const captcha =
+  '<script src="https://hcaptcha.com/1/api.js" async defer></script>';
+
 app.get("/triggers", (req, res) => {
   const { query } = parse(req.url, true);
   const { guild = "000000000000000000" } = query;
