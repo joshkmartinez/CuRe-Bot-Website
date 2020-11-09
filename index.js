@@ -7,11 +7,11 @@ require("dotenv").config();
 const port = 3000;
 app.use(express.urlencoded({ extended: false }));
 
+const analytics = `<script data-goatcounter="https://cure.goatcounter.com/count"
+async src="//gc.zgo.at/count.js"></script>`;
+
 const styles = `<meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">`;
-
-const captcha =
-  '<script src="https://hcaptcha.com/1/api.js" async defer></script>';
 
 app.get("/triggers", (req, res) => {
   const { query } = parse(req.url, true);
@@ -30,7 +30,8 @@ app.get("/triggers", (req, res) => {
         ans += "<b>Index: " + i + "</b><br/>" + list[i] + "<br/><br/>";
       }
       res.send(
-        styles +
+        analytics +
+          styles +
           captcha +
           '<div class="h-captcha" data-sitekey="10c0694e-6e03-4851-b19a-92025eb2d72c"></div>' +
           ans
@@ -38,7 +39,8 @@ app.get("/triggers", (req, res) => {
     })
     .catch(async function (error) {
       res.send(
-        styles +
+        analytics +
+          styles +
           error +
           marked(
             "### A server with that ID does not exist.<br/>Create a trigger with the `?create` command to see it here."
@@ -67,10 +69,12 @@ app.get("/", (req, res) => {
       "https://raw.githubusercontent.com/joshkmartinez/CuRe-Bot/master/README.md"
     )
     .then(async function (response) {
-      res.send(styles + marked(response.data));
+      res.send(analytics + styles + marked(response.data));
     })
     .catch(async function (error) {
-      res.send(styles + error + "<b/>Error. Please refresh the page.");
+      res.send(
+        analytics + styles + error + "<b/>Error. Please refresh the page."
+      );
     });
 });
 
