@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const path = require('path'),
+const path = require("path");
 const { parse } = require("url");
 const axios = require("axios");
 const marked = require("marked");
@@ -61,10 +61,10 @@ app.get("/invite", (req, res) => {
   );
 });
 
-app.use(express.static('public'));
+app.use(express.static("public"));
 
-app.get('/arc-sw.js',function(req,res){
-  res.sendFile(path.join(__dirname + '/arc-sw.js')); 
+app.get("/arc-sw.js", function (req, res) {
+  res.sendFile(path.join(__dirname + "/arc-sw.js"));
 });
 
 app.get("/server", (req, res) => {
