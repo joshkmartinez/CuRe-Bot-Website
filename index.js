@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const path = require('path'),
 const { parse } = require("url");
 const axios = require("axios");
 const marked = require("marked");
@@ -10,8 +11,10 @@ app.use(express.urlencoded({ extended: false }));
 const analytics = `<script data-goatcounter="https://cure.goatcounter.com/count"
 async src="//gc.zgo.at/count.js"></script>`;
 
-const styles = `<meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">`;
+const head = `<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+<script async src="https://arc.io/widget.min.js#cdDwSEjc"></script>
+`;
 
 const captcha =
   '<script src="https://hcaptcha.com/1/api.js" async defer></script>';
@@ -34,7 +37,7 @@ app.get("/triggers", (req, res) => {
       }
       res.send(
         analytics +
-          styles +
+          head +
           captcha +
           '<div class="h-captcha" data-sitekey="10c0694e-6e03-4851-b19a-92025eb2d72c"></div>' +
           ans
@@ -43,7 +46,7 @@ app.get("/triggers", (req, res) => {
     .catch(async function (error) {
       res.send(
         analytics +
-          styles +
+          head +
           error +
           marked(
             "### A server with that ID does not exist.<br/>Create a trigger with the `?create` command to see it here."
@@ -56,6 +59,12 @@ app.get("/invite", (req, res) => {
   res.redirect(
     "https://discordapp.com/oauth2/authorize?client_id=592968118905733120&permissions=0&scope=bot"
   );
+});
+
+app.use(express.static('public'));
+
+app.get('/arc-sw.js',function(req,res){
+  res.sendFile(path.join(__dirname + '/arc-sw.js')); 
 });
 
 app.get("/server", (req, res) => {
@@ -72,11 +81,11 @@ app.get("/", (req, res) => {
       "https://raw.githubusercontent.com/joshkmartinez/CuRe-Bot/master/README.md"
     )
     .then(async function (response) {
-      res.send(analytics + styles + marked(response.data));
+      res.send(analytics + head + marked(response.data));
     })
     .catch(async function (error) {
       res.send(
-        analytics + styles + error + "<b/>Error. Please refresh the page."
+        analytics + head + error + "<b/>Error. Please refresh the page."
       );
     });
 });
