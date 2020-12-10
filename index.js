@@ -8,8 +8,7 @@ require("dotenv").config();
 const port = 3000;
 app.use(express.urlencoded({ extended: false }));
 
-const analytics = `<script data-goatcounter="https://cure.goatcounter.com/count"
-async src="//gc.zgo.at/count.js"></script>`;
+const analytics = `<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "05f9af8196c34675a37a289b3bbe9d4a"}'></script><!-- End Cloudflare Web Analytics -->`;
 
 const head = `<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
