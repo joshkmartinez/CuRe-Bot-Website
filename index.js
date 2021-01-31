@@ -56,7 +56,7 @@ app.get("/triggers", (req, res) => {
 
 app.get("/invite", (req, res) => {
   res.redirect(
-    "https://discordapp.com/oauth2/authorize?client_id=592968118905733120&permissions=0&scope=bot"
+    "https://discord.com/oauth2/authorize?client_id=592968118905733120&permissions=19456&scope=bot"
   );
 });
 
