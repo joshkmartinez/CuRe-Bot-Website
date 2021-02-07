@@ -14,9 +14,9 @@
     "axios": "^0.21.1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "marked": "^1.2.8"
+    "marked": "^1.2.9"
   },
   "devDependencies": {
-    "vercel": "^21.2.2"
+    "vercel": "^21.2.3"
   }
 }
