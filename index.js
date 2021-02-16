@@ -34,6 +34,9 @@ app.get("/triggers", (req, res) => {
       for (i = 0; i < list.length; i++) {
         ans += "<b>Index: " + i + "</b><br/>" + list[i] + "<br/><br/>";
       }
+      if(list.length==0){
+        ans="<h1>Create triggers to see your trigger list here.</h1><br/>Join the <a href='https://cure.jkm.sh/server'>support server</a> for help."
+      }
       res.send(
         analytics +
           head +
